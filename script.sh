@@ -17,6 +17,8 @@
 echo "What is the name of your project?"
 read projectName
 
+headerfile="$projectName/includes/$projectName.h"
+mainfile="$projectName/srcs/$projectName.c"
 upper=$(echo "$projectName" | awk '{print toupper($0)}')
 
 if [ -z $projectName ]; then
@@ -25,21 +27,12 @@ elif [ -d $projectName ]; then
 	echo "\033[0;31m</ Project already exists! >\033[0m"
 else
 	mkdir $projectName
-	mkdir $projectName/srcs
-	touch $projectName/srcs/$projectName.c
-	echo "#include <$projectName.h>" >> $projectName/srcs/$projectName.c
-	cat >> $projectName/srcs/$projectName.c < templates/main.template
 	mkdir $projectName/includes
-	touch $projectName/includes/$projectName.h
-	echo "#ifndef "$upper"_H" >> $projectName/includes/$projectName.h
-	echo "# define "$upper"_H" >> $projectName/includes/$projectName.h
-	echo "" >> $projectName/includes/$projectName.h
-	echo "# include <libft.h>" >> $projectName/includes/$projectName.h
-	echo "# include <stdio.h>" >> $projectName/includes/$projectName.h
-	echo "# include <unistd.h>" >> $projectName/includes/$projectName.h
-	echo "# include <stdlib.h>" >> $projectName/includes/$projectName.h
-	echo "" >> $projectName/includes/$projectName.h
-	echo "#endif" >> $projectName/includes/$projectName.h
+	touch $headerfile
+	mkdir $projectName/srcs
+	touch $mainfile
+	echo "#include <$projectName.h>" >> $mainfile
+	cat >> $mainfile < templates/main.template
 	mkdir $projectName/libs
 	echo "Do you want to add libft? (y/n)"
 	read answer
@@ -52,7 +45,19 @@ else
 	else
 		echo "\033[0;36m</ libft not added >\033[0m"
 	fi
+	echo "#ifndef "$upper"_H" >> $headerfile
+	echo "# define "$upper"_H" >> $headerfile
+	echo "" >> $headerfile
+	if [ -d $projectName/libs/libft ]; then
+		echo "# include <libft.h>" >> $headerfile
+	fi
+	echo "# include <stdio.h>" >> $headerfile
+	echo "# include <unistd.h>" >> $headerfile
+	echo "# include <stdlib.h>" >> $headerfile
+	echo "" >> $headerfile
+	echo "#endif" >> $headerfile
 	touch $projectName/Makefile
+	echo "NAME	=	$projectName" >> $projectName/Makefile
 	cat >> $projectName/Makefile < templates/Makefile.template
 	echo "\033[1;32m</ Project has been Created! >\033[0m"
 fi

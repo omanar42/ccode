@@ -1,10 +1,18 @@
-NAME	=	<projectName>
 RM		=	rm -f
 CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
 LIBFT	=	libs/libft/libft.a
-SRCS	=	srcs/<projectName>.c $(LIBFT)
+SRCS	=	srcs/$(NAME).c $(LIBFT)
 
 define HEADER_M
+
+|￣￣￣￣￣￣￣￣￣￣￣￣￣|
+	$(NAME)			
+|＿＿＿＿＿＿＿＿＿＿＿＿＿|
+	\(•_•)/
+	 \   /
+	  -——-
+	  |  |
+	  |_ |_
 endef
 export HEADER_M
 
@@ -18,9 +26,9 @@ $(LIBFT):
 	@make -C libs/libft
 
 $(NAME): $(SRCS) $(LIBFT)
-	@echo "\033[0;36m</ Compiling <projectName> >\033[0m"
+	@echo "\033[0;36m</ Compiling $(NAME) >\033[0m"
 	@$(CC) $(SRCS) -o $(NAME)
-	@echo "\033[1;32m<projectName> has been compiled!\033[0m\n"
+	@echo "\033[1;32m$(NAME) has been compiled!\033[0m\n"
 
 clean:
 	@make clean -C libs/libft
