@@ -14,7 +14,9 @@
 
 echo "What is the name of your project?"
 read projectName
-if [ -d $projectName ]; then
+if [ -z $projectName ]; then
+	echo "\033[0;31m</ Please give a name! >\033[0m"
+elif [ -d $projectName ]; then
 	echo "\033[0;31m</ Project already exists! >\033[0m"
 else
 	mkdir $projectName
