@@ -17,6 +17,8 @@
 echo "What is the name of your project?"
 read projectName
 
+upper=$(echo "$projectName" | awk '{print toupper($0)}')
+
 if [ -z $projectName ]; then
 	echo "\033[0;31m</ Please give a name! >\033[0m"
 elif [ -d $projectName ]; then
@@ -25,8 +27,19 @@ else
 	mkdir $projectName
 	mkdir $projectName/srcs
 	touch $projectName/srcs/$projectName.c
+	echo "#include <$projectName.h>" >> $projectName/srcs/$projectName.c
+	cat >> $projectName/srcs/$projectName.c < templates/main.template
 	mkdir $projectName/includes
 	touch $projectName/includes/$projectName.h
+	echo "#ifndef "$upper"_H" >> $projectName/includes/$projectName.h
+	echo "# define "$upper"_H" >> $projectName/includes/$projectName.h
+	echo "" >> $projectName/includes/$projectName.h
+	echo "# include <libft.h>" >> $projectName/includes/$projectName.h
+	echo "# include <stdio.h>" >> $projectName/includes/$projectName.h
+	echo "# include <unistd.h>" >> $projectName/includes/$projectName.h
+	echo "# include <stdlib.h>" >> $projectName/includes/$projectName.h
+	echo "" >> $projectName/includes/$projectName.h
+	echo "#endif" >> $projectName/includes/$projectName.h
 	mkdir $projectName/libs
 	echo "Do you want to add libft? (y/n)"
 	read answer
