@@ -1,1 +1,1 @@
-# This script makes setting up projects easy
+# This script makes setting up projects environment easy

@@ -12,20 +12,25 @@
 
 #! /bin/bash
 
+# START #
+
 echo "What is the name of your project?"
 read projectName
+
 if [ -z $projectName ]; then
 	echo "\033[0;31m</ Please give a name! >\033[0m"
 elif [ -d $projectName ]; then
 	echo "\033[0;31m</ Project already exists! >\033[0m"
 else
 	mkdir $projectName
-	cd $projectName
-	mkdir src
-	touch src/$projectName.c
-	mkdir includes
-	touch includes/$projectName.h
-	mkdir libs
-	touch Makefile
+	mkdir $projectName/srcs
+	touch $projectName/srcs/$projectName.c
+	mkdir $projectName/includes
+	touch $projectName/includes/$projectName.h
+	mkdir $projectName/libs
+	touch $projectName/Makefile
+	cat >> $projectName/Makefile < templates/Makefile.template
 	echo "\033[1;32m</ Project has been Created! >\033[0m"
 fi
+
+# END #
