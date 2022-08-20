@@ -1,6 +1,6 @@
 
 int	main(int ac, char **av)
 {
-	// Enjoy writing the code
+	// Enjoy coding :)
 	return (0);
 }
