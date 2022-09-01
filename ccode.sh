@@ -25,7 +25,7 @@ echo -e " 	░▀▀▀░▀▀▀░▀▀▀░▀▀░░▀▀▀ "
 echo -en "\n     By: "
 echo -e "\033[1;35mOmanar\033[0m [Oussama MANAR]\n"
 sleep 0.2
-echo "Insert Project title:" # Ask for project title
+echo -n "Insert Project title: " # Ask for project title
 read projectName # Get project title
 
 # Define auxiliary variables
@@ -53,7 +53,7 @@ else # If project title is valid
 	echo "#include <$projectName.h>" >> $mainfile # Include header file in main file
 	cat >> $mainfile < $CCODE_DIR/templates/main.template # Add main file template
 	mkdir $DFL_DIR/$projectName/libs # Create libs directory
-	echo "Add libft? (y/n):" # Ask for libft choice
+	echo -en "\nAdd libft? (y/n): " # Ask for libft choice
 	read answer # Get libft choice
 	if [ -z $answer ] || ( [ $answer != "y" ] && [ $answer != "n" ] ); then # If libft choice is empty or invalid
 		sleep 0.25
