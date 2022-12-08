@@ -1,7 +1,9 @@
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+CC		=	gcc -Iincludes -I libs/libft/includes
+FLAGS	=	-Wall -Wextra -Werror
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/$(NAME).c $(LIBFT)
+DEBUG	=	-g -fsanitize=address
 
 define HEADER_M
 
@@ -29,6 +31,10 @@ $(NAME): $(SRCS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling $(NAME) >\033[0m"
 	@$(CC) $(SRCS) -o $(NAME)
 	@echo "\033[1;32m$(NAME) has been compiled!\033[0m\n"
+
+debug: all
+	@$(CC) $(DEBUG) $(SRCS) -o $(NAME)
+	@echo "\033[1;31m</ YOU ARE IN DEBUG MODE! >\033[0m\n"
 
 clean:
 	@make clean -C libs/libft
